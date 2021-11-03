@@ -81,6 +81,10 @@ class AppUrlChangeController extends AbstractController
      */
     public function getUrlDifference(): Response
     {
+        if (EnvironmentHelper::getVariable('DEMO') == true) {
+            return new Response(null, Response::HTTP_NO_CONTENT);
+        }
+        
         if (!$this->systemConfigService->get(ShopIdProvider::SHOP_DOMAIN_CHANGE_CONFIG_KEY)) {
             return new Response(null, Response::HTTP_NO_CONTENT);
         }
